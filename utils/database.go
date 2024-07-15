@@ -17,4 +17,6 @@ func connectDb() *gorm.DB {
 		return nil
 	}
 	DB = db
+
+	DB.AutoMigrate()
 }
