@@ -3,7 +3,7 @@
 
 # Step: 1
 
-# Add your key from Coin Market Cap Price Ticker api to the apiKey variable in main.go file
+# Add your key from Coin Market Cap Price Ticker api to the apiKey variable in the main.go file
 
 # Step: 2
 
