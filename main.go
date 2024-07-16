@@ -17,7 +17,10 @@ func main() {
 		return
 	}
 	repo := repository.NewPsqlRepository(db)
+
+	//APIkey of Coin Market Cap Price Ticker API
 	apiKey := "843b432c-744a-4317-836f-55eef2e4c9ce"
+
 	router := gin.Default()
 	ctrl := controller.NewController(apiKey, repo)
 	route.SetUpRoutes(router, ctrl)
