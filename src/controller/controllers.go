@@ -146,8 +146,7 @@ func (ctrl *Controller) UpdateCoins() {
 			existingCrypto, err := ctrl.Repo.SearchBySymbol(crypto.Symbol)
 			if err != nil {
 				if err == repository.ErrCryptoNotFound {
-					err = ctrl.Repo.SaveCryptocurrency(&crypto)
-					if err != nil {
+					if err := ctrl.Repo.SaveCryptocurrency(&crypto); err != nil {
 						log.Printf("Error saving new cryptocurrency: %v", err)
 					} else {
 						log.Printf("Saved new cryptocurrency: %s (%s)", crypto.Name, crypto.Symbol)
@@ -159,18 +158,27 @@ func (ctrl *Controller) UpdateCoins() {
 			}
 
 			// Check for updates
-			if existingCrypto.CurrentPrice != crypto.CurrentPrice ||
-				existingCrypto.MarketCap != crypto.MarketCap ||
-				existingCrypto.Volume24h != crypto.Volume24h ||
-				existingCrypto.PercentChange1h != crypto.PercentChange1h ||
-				existingCrypto.PercentChange24h != crypto.PercentChange24h ||
-				existingCrypto.PercentChange7d != crypto.PercentChange7d {
+			if existingCrypto != nil {
+				if existingCrypto.CurrentPrice != crypto.CurrentPrice ||
+					existingCrypto.MarketCap != crypto.MarketCap ||
+					existingCrypto.Volume24h != crypto.Volume24h ||
+					existingCrypto.PercentChange1h != crypto.PercentChange1h ||
+					existingCrypto.PercentChange24h != crypto.PercentChange24h ||
+					existingCrypto.PercentChange7d != crypto.PercentChange7d {
 
-				err = ctrl.Repo.SaveCryptocurrency(&crypto)
-				if err != nil {
-					log.Printf("Error updating cryptocurrency: %v", err)
-				} else {
-					log.Printf("Updated cryptocurrency: %s (%s)", crypto.Name, crypto.Symbol)
+					existingCrypto.Name = crypto.Name
+					existingCrypto.CurrentPrice = crypto.CurrentPrice
+					existingCrypto.MarketCap = crypto.MarketCap
+					existingCrypto.Volume24h = crypto.Volume24h
+					existingCrypto.PercentChange1h = crypto.PercentChange1h
+					existingCrypto.PercentChange24h = crypto.PercentChange24h
+					existingCrypto.PercentChange7d = crypto.PercentChange7d
+
+					if err := ctrl.Repo.SaveCryptocurrency(existingCrypto); err != nil {
+						log.Printf("Error updating cryptocurrency: %v", err)
+					} else {
+						log.Printf("Updated cryptocurrency: %s (%s)", existingCrypto.Name, existingCrypto.Symbol)
+					}
 				}
 			}
 		}
