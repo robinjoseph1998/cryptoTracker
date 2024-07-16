@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"cryptoTracker/src/models"
 	"log"
 
 	"gorm.io/driver/postgres"
@@ -9,7 +10,7 @@ import (
 
 var DB *gorm.DB
 
-func connectDb() *gorm.DB {
+func ConnectDb() *gorm.DB {
 	dsn := "host=localhost user=postgres password=robin123 dbname=cryptodb port=5432 sslmode=disable TimeZone=Asia/Kolkata"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -18,5 +19,9 @@ func connectDb() *gorm.DB {
 	}
 	DB = db
 
-	DB.AutoMigrate()
+	if err := DB.AutoMigrate(&models.Cryptocurrency{}); err != nil {
+		log.Fatalf("Error during Automigrate: %v", err)
+	}
+
+	return db
 }

@@ -1,9 +1,13 @@
 package route
 
-import "github.com/gin-gonic/gin"
+import (
+	"cryptoTracker/src/controller"
 
-func SetUpRoutes(r *gin.Engine) {
+	"github.com/gin-gonic/gin"
+)
 
-	r.POST("/scrapper")
+func SetUpRoutes(router *gin.Engine, ctrl *controller.Controller) {
+
+	router.GET("/api/v1/cryptocurrencies", ctrl.LatestListings)
 
 }
