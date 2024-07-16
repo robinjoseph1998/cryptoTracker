@@ -20,6 +20,7 @@ func NewClient(apiKey string) *Client {
 
 }
 
+/****API of Price Ticker to Get Latest Listings****/
 func (c *Client) GetLatestListings() (string, error) {
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", c.BaseURL+"cryptocurrency/listings/latest", nil)

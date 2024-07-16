@@ -3,7 +3,6 @@ package repository
 import (
 	"cryptoTracker/src/models"
 	"errors"
-	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -16,7 +15,7 @@ func NewPsqlRepository(db *gorm.DB) PsqlRepository {
 	return &psqlRepo{db: db}
 }
 
-/***Inserting coin data to database***/
+/***Inserting coin datas to database***/
 func (p *psqlRepo) SaveCryptocurrency(crypto *models.Cryptocurrency) error {
 	err := p.db.Save(crypto)
 	if err.Error != nil {
@@ -27,9 +26,8 @@ func (p *psqlRepo) SaveCryptocurrency(crypto *models.Cryptocurrency) error {
 
 var ErrCryptoNotFound = errors.New("cryptocurrency not found") //custom error to crypto not found
 
-/***Searching coin data in database by name***/
+/***Searching coin datas in database by name***/
 func (p *psqlRepo) SearchByName(name string) (models.Cryptocurrency, error) {
-	fmt.Println("name", name)
 	var crypto models.Cryptocurrency
 	err := p.db.Where("name=?", name).First(&crypto)
 	if err.Error != nil {
@@ -41,7 +39,7 @@ func (p *psqlRepo) SearchByName(name string) (models.Cryptocurrency, error) {
 	return crypto, nil
 }
 
-/***Searching coin data in database by symbol***/
+/***Searching coin datas in database by symbol***/
 func (p *psqlRepo) SearchBySymbol(symbol string) (models.Cryptocurrency, error) {
 	var crypto models.Cryptocurrency
 	err := p.db.Where("symbol=?", symbol).First(&crypto)

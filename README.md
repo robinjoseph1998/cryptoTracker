@@ -11,3 +11,7 @@
 # Step: 3
 
 # Run the Project: go run main.go
+
+
+# Database Used: Postgres SQL
+# Other Technologies: gin, go cron, Price Ticker API of coin Market Cap
