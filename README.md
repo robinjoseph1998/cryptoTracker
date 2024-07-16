@@ -16,3 +16,16 @@
 # --------------------------------- #
 # Database Used: Postgres SQL
 # Other Technologies: gin, go cron, Price Ticker API of coin Market Cap
+# --------------------------------- #
+
+# Structure
+        ├──routes
+        |  ├──routes.go
+        ├──src/
+        |  ├──controllers
+        |  ├──models
+        |  ├──repository
+        ├──utils/
+        |  ├──coinmarketcap
+        |  ├──database
+        └──main.go
