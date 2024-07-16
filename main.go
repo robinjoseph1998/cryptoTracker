@@ -32,7 +32,6 @@ func main() {
 	}()
 	c := cron.New()
 	err := c.AddFunc("*/5 * * * *", func() {
-		// Function to fetch and update cryptocurrency data
 		ctrl.UpdateCoins()
 
 	})
