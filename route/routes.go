@@ -8,6 +8,7 @@ import (
 
 func SetUpRoutes(router *gin.Engine, ctrl *controller.Controller) {
 
-	router.GET("/api/v1/cryptocurrencies", ctrl.LatestListings)
+	router.GET("/latestlistings", ctrl.LatestListings)
+	router.POST("/savelistings", ctrl.SaveListings)
 
 }

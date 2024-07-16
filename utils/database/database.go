@@ -22,6 +22,5 @@ func ConnectDb() *gorm.DB {
 	if err := DB.AutoMigrate(&models.Cryptocurrency{}); err != nil {
 		log.Fatalf("Error during Automigrate: %v", err)
 	}
-
 	return db
 }
