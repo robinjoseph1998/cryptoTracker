@@ -16,6 +16,7 @@
 # --------------------------------- #
 # Database Used: Postgres SQL
 # Other Technologies: gin, go cron, Price Ticker API of coin Market Cap
+# Testing: Postman
 # --------------------------------- #
 
 # Structure
