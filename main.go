@@ -5,8 +5,10 @@ import (
 	"cryptoTracker/src/controller"
 	"cryptoTracker/src/repository"
 	utils "cryptoTracker/utils/database"
+	"log"
 
 	"github.com/gin-gonic/gin"
+	"github.com/robfig/cron"
 )
 
 func main() {
@@ -19,6 +21,21 @@ func main() {
 	router := gin.Default()
 	ctrl := controller.NewController(apiKey, repo)
 	route.SetUpRoutes(router, ctrl)
-	router.Run(":8080")
 
+	go func() {
+		if err := router.Run(":8080"); err != nil {
+			log.Fatalf("Failed to start Gin server: %v", err)
+		}
+	}()
+	c := cron.New()
+	err := c.AddFunc("*/5 * * * *", func() {
+		// Function to fetch and update cryptocurrency data
+		ctrl.UpdateCoins()
+
+	})
+	if err != nil {
+		log.Fatalf("Error scheduling cron job: %v", err)
+	}
+	c.Start()
+	select {}
 }

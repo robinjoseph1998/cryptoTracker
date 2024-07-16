@@ -10,5 +10,7 @@ func SetUpRoutes(router *gin.Engine, ctrl *controller.Controller) {
 
 	router.GET("/latestlistings", ctrl.LatestListings)
 	router.POST("/savelistings", ctrl.SaveListings)
+	router.GET("/searchbyname", ctrl.SearchCoinbyName)
+	router.GET("/searchbysymbol", ctrl.SearchCoinbySymbol)
 
 }
