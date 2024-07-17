@@ -15,7 +15,7 @@ func NewPsqlRepository(db *gorm.DB) PsqlRepository {
 	return &psqlRepo{db: db}
 }
 
-/***Inserting coin datas to database***/
+/***Inserting & Updating coin datas to database***/
 func (p *psqlRepo) SaveCryptocurrency(crypto *models.Cryptocurrency) error {
 	var existingCrypto models.Cryptocurrency
 	if err := p.db.Where("symbol = ?", crypto.Symbol).First(&existingCrypto).Error; err != nil {
